@@ -42,7 +42,7 @@ window.addEventListener('DOMContentLoaded', () =>{
     
             cartWrapper.appendChild(item);
             if (empty) {
-                empty.remove();
+                empty.style.display = 'none';
             }
 
             calcTotal();
@@ -83,15 +83,22 @@ window.addEventListener('DOMContentLoaded', () =>{
        badge.textContent = i + items.length;
    }
 
-   function calcTotal() {
+   function calcTotal(i) {
        const prices = document.querySelectorAll('.cart__wrapper > .goods__item > .goods__price > span');
        let total = 0;
-
+       
        prices.forEach(function(item) {
            total += +item.textContent;
-       });
-       totalCost.textContent = total;
-   }
+        });
+        totalCost.textContent = total;
+
+        // Домашка второго дня
+        
+        let empty = cartWrapper.querySelector('.empty');
+        if (total == 0) {
+            empty.style.display = 'block';
+        }
+    }
 
    function removeFromCart() {
        const removeBtn = cartWrapper.querySelectorAll('.goods__item-remove');
@@ -100,7 +107,9 @@ window.addEventListener('DOMContentLoaded', () =>{
                btn.parentElement.remove();
                calcGoods(0);
                calcTotal();
-           });
+            });
        });
+
    }
-});
+
+    });
